@@ -9,7 +9,7 @@ const registerAuthor = async (req, res) => {
 
   try {
     // Validating user Input
-    if (!email && !password && !name) {
+    if (!email || !password || !name) {
       res.status(400).send(`Please send all required fields`);
     }
 
@@ -25,9 +25,11 @@ const registerAuthor = async (req, res) => {
       email,
       password,
       name,
-      token: generateWebToken(author._id),
     });
 
+    //Generating token for author
+    author.token = generateWebToken(author._id);
+    author.save();
     // Return new author
     res.status(201).json(author);
   } catch (err) {

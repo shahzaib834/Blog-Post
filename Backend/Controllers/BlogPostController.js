@@ -17,21 +17,43 @@ const showBlogWithId = async (req, res) => {
 };
 
 const addBlog = async (req, res) => {
-  const { title, description, category } = req.body;
+  try {
+    const { title, description, category } = req.body;
 
-  if (!title || !description || !category) {
-    res.status(400).send('Title Description And Category are required');
+    if (!title || !description || !category) {
+      res.status(400).send('Title Description And Category are required');
+    }
+
+    const author = await Author.findById(req.user._id);
+
+    if (author) {
+      const blog = await Blog.create({
+        author: author._id,
+        title,
+        description,
+        category,
+      });
+
+      // Update Author to have this blog in the database.
+      const blogs = await Author.findById(req.user._id);
+      //console.log(blogs);
+      const updatedBlogs = [blog];
+
+      const updatedAuthor = await Author.findByIdAndUpdate(
+        req.user._id,
+        {
+          blogs: updatedBlogs,
+        },
+        { new: true }
+      );
+      console.log(updatedAuthor);
+      res.status(200).send(blog);
+    } else {
+      res.status(404).send(`User not found`);
+    }
+  } catch (err) {
+    console.log(`Error : ${err.message}`);
   }
-  const author = await Author.find({ _id: '62a069ee811af7b24b0cc19a' });
-
-  const blog = await Blog.create({
-    author: author[0]._id,
-    title,
-    description,
-    category,
-  });
-
-  res.status(200).send(blog);
 };
 
 const updateBlog = async (req, res) => {

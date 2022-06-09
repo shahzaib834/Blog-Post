@@ -6,6 +6,8 @@ const {
   updateBlog,
   deleteBlog,
 } = require('../Controllers/BlogPostController');
+
+const protect = require('../middleware/authMiddleware');
 const router = express.Router();
 
 // All Blogs.
@@ -15,7 +17,7 @@ router.route('/').get(ShowAllBlogs);
 router.route('/:id').get(showBlogWithId);
 
 // Add A Blog
-router.route('/add').post(addBlog);
+router.route('/add').post(protect, addBlog);
 
 // Update A Blog
 router.route('/update/:id').put(updateBlog);

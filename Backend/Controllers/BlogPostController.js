@@ -34,18 +34,14 @@ const addBlog = async (req, res) => {
         category,
       });
 
-      // Update Author to have this blog in the database.
-      //const blogs = await Author.findById(req.user._id);
-
-      //const updatedBlogs = [blog];
-
       const updatedAuthor = await Author.findByIdAndUpdate(
         req.user._id,
         { $push: { blogs: blog } },
         { new: true }
       );
-      console.log(updatedAuthor);
-      res.status(200).send(blog);
+      res
+        .status(200)
+        .json(`Updated Blog : ${blog} and Updated Authir : ${updatedAuthor}`);
     } else {
       res.status(404).send(`User not found`);
     }
@@ -55,22 +51,62 @@ const addBlog = async (req, res) => {
 };
 
 const updateBlog = async (req, res) => {
-  const { title, description, category } = req.body;
+  try {
+    const { title, description, category } = req.body;
 
-  if ((!title, !description, !category)) {
-    res.status(404).send('Please send all fields');
+    if ((!title, !description, !category)) {
+      res.status(404).send('Please send all fields');
+    }
+
+    // Getting author id
+    const author = await Author.findById(req.user._id);
+
+    // Getting blog by its id
+    const blog = await Blog.findById({ _id: req.params.id });
+
+    // Checking if this blog belongs to the user who reqquested the update/edit.
+
+    // console.log(`blog : ${blog._id}`);
+    // console.log(`author blogs : ${author.blogs[0]}`);
+
+    // Mapping through blogs of author to check if he is the owner of the blog.
+
+    //  const isSame = author.blogs.map((value) => {
+    //    if (blog._id === value) {
+    //      return true;
+    //    }
+    //  });
+
+    // const isSame = author.blogs.map((value) => blog._id === value);
+
+    //  const isSame = author.blogs.forEach((value) => {
+    //    if (blog._id === value) {
+    //      return true;
+    //    }
+    //  });
+
+    console.log(`Value of IsSame : ${isSame}`);
+    if (isSame === true) {
+      const editedBlog = await Blog.findByIdAndUpdate(
+        { _id: req.params.id },
+        {
+          title,
+          description,
+          category,
+        },
+        { new: true }
+      );
+
+      res.status(200).send(editedBlog);
+    } else {
+      res
+        .status(400)
+        .send(`You don't own the blog so you cannot edit this blog.`);
+    }
+  } catch (err) {
+    res.status(400);
+    throw new Error(`Error : ${err.message}`);
   }
-  const newBlog = await Blog.findByIdAndUpdate(
-    { _id: req.params.id },
-    {
-      title,
-      description,
-      category,
-    },
-    { new: true }
-  );
-
-  res.status(200).send(newBlog);
 };
 
 const deleteBlog = async (req, res) => {

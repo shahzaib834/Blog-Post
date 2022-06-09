@@ -19,8 +19,8 @@ router.route('/:id').get(showBlogWithId);
 // Add A Blog
 router.route('/add').post(protect, addBlog);
 
-// Update A Blog
-router.route('/update/:id').put(updateBlog);
+// Edit A Blog
+router.route('/update/:id').put(protect, updateBlog);
 
 // Delete A Blog
 router.route('/delete/:id').delete(deleteBlog);

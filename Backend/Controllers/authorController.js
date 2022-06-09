@@ -13,15 +13,15 @@ const showAuthorWithId = async (req, res) => {
 };
 
 const updateAuthor = async (req, res) => {
-  const { name, contact } = req.body;
+  const { name, email } = req.body;
 
-  if ((!name, !contact)) {
+  if ((!name, !email)) {
     res.status(404).send('Please send all fields');
   }
 
   const updatedAuthor = await Author.findByIdAndUpdate(
-    { _id: req.params.id },
-    { name, contact },
+    { _id: req.user._id },
+    { name, email },
     { new: true }
   );
 

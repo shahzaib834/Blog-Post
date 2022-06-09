@@ -19,11 +19,12 @@ Features.
 - Login/Sign Up(Add Author) //done
 - Create Articles/Blogs //done
 - View All Blogs //done
+- Edit own profile //done
 - Edit/Delete own blog
+- Delete own Blog
 - Add Category,tags,filter to list blog.
 - Follow other authors
 - fav/like authors
 - comment articles/blogs.
 
 Todos.
-1 - Implement Authorization.

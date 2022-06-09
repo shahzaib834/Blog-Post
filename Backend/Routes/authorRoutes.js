@@ -31,7 +31,7 @@ router.route('/').get(ShowAllAuthors);
 router.route('/:id').get(showAuthorWithId);
 
 // Update Author By Id
-router.route('/update/:id').put(updateAuthor);
+router.route('/update').put(protect, updateAuthor);
 
 //Follow Other Authors.
 //router.route('/follow/:id').put(followAuthor);

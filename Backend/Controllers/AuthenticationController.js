@@ -64,7 +64,7 @@ const loginAuthor = async (req, res) => {
 
 const getUserProfile = async (req, res) => {
   try {
-    const author = await Author.findById(req.user);
+    const author = await Author.findById(req.user._id);
     if (author) {
       res.json({
         _id: author._id,

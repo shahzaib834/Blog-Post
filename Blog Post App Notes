@@ -1,31 +1,29 @@
 Blog Post App
 
-
 Models.
-1 - Blog   - Title, Description , Image , Category, Author, comments. lieks/fav
+1 - Blog - Title, Description , Image , Category, Author, comments. lieks/fav
 2 - Author - name, picture, contact/email, followeres, following , blogs.
 
-
 Routes.
-- /api/blogs                                                // done
-- /api/blogs/:id                                            // done
-- /api/authors                                              // done
-- /api/aithors/:id                                          // done
-- /api/authors/ (addBlog)(DeleteBlog)(UpdateBlog)           //done
 
+- /api/blogs // done
+- /api/blogs/:id // done
+- /api/authors // done
+- /api/aithors/:id // done
+- /api/authors/ (addBlog)(DeleteBlog)(UpdateBlog) //done
 
-- Update Author                                             //done
+- Update Author //done
 
 Features.
-- Login/Sign Up(Add Author)                                 //done
-- Create Articles/Blogs                                     //done
-- View All Blogs                                            //done
-- Edit/Delete own blog                                                                      
+
+- Login/Sign Up(Add Author) //done
+- Create Articles/Blogs //done
+- View All Blogs //done
+- Edit/Delete own blog
 - Add Category,tags,filter to list blog.
 - Follow other authors
 - fav/like authors
 - comment articles/blogs.
-
 
 Todos.
 1 - Implement Authorization.

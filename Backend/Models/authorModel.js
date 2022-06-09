@@ -42,6 +42,12 @@ const authorSchema = mongoose.Schema(
     },
     followers: [followersSchema],
     following: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Author' }],
+    blogs: [
+      {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Blog',
+      },
+    ],
   },
   {
     timestamps: true,

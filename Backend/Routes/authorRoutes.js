@@ -11,6 +11,7 @@ const {
   followAuthor,
   addAuthor,
 } = require('../Controllers/authorController');
+const protect = require('../middleware/authMiddleware');
 
 const router = express.Router();
 
@@ -21,7 +22,7 @@ router.route('/register').post(registerAuthor);
 router.route('/login').post(loginAuthor);
 
 //Get author profile
-router.route('/profile').get(getUserProfile);
+router.route('/profile').get(protect, getUserProfile);
 
 // Get All Authors
 router.route('/').get(ShowAllAuthors);

@@ -35,15 +35,13 @@ const addBlog = async (req, res) => {
       });
 
       // Update Author to have this blog in the database.
-      const blogs = await Author.findById(req.user._id);
-      //console.log(blogs);
-      const updatedBlogs = [blog];
+      //const blogs = await Author.findById(req.user._id);
+
+      //const updatedBlogs = [blog];
 
       const updatedAuthor = await Author.findByIdAndUpdate(
         req.user._id,
-        {
-          blogs: updatedBlogs,
-        },
+        { $push: { blogs: blog } },
         { new: true }
       );
       console.log(updatedAuthor);

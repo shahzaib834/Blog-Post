@@ -133,10 +133,34 @@ const deleteBlog = async (req, res) => {
     res.status(400).send(`Error : ${err.message}`);
   }
 };
+
+const likeABlog = async (req, res) => {
+  // Finding blog comming with params.
+  const blogToLike = await Blog.findById({ _id: req.params.id });
+
+  // Checking if user send a valid blog id
+  if (!blogToLike) {
+    res.status(400).send(`Error: No Blog found`);
+  }
+
+  //Checking if the user already liked the blog
+
+  //Updating blog to increase count of likes in blog
+  const updatedBlog = await Blog.findByIdAndUpdate(
+    { _id: req.params.id },
+    {
+      $inc: { likes: 1 },
+    },
+    { new: true }
+  );
+
+  res.send(updatedBlog);
+};
 module.exports = {
   ShowAllBlogs,
   showBlogWithId,
   addBlog,
   updateBlog,
   deleteBlog,
+  likeABlog,
 };

@@ -5,6 +5,7 @@ const {
   addBlog,
   updateBlog,
   deleteBlog,
+  likeABlog,
 } = require('../Controllers/BlogPostController');
 
 const protect = require('../middleware/authMiddleware');
@@ -24,5 +25,8 @@ router.route('/edit/:id').put(protect, updateBlog);
 
 // Delete A Blog
 router.route('/delete/:id').delete(protect, deleteBlog);
+
+// Like a blog
+router.route('/like/:id').post(likeABlog);
 
 module.exports = router;

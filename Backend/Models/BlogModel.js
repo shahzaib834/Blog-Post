@@ -28,6 +28,7 @@ const blogSchema = mongoose.Schema(
       type: Number,
       default: 0,
     },
+    likedByAuthors: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Author' }],
     Image: {
       type: String,
       default:

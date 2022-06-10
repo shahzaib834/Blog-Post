@@ -179,6 +179,35 @@ const likeABlog = async (req, res) => {
     res.status(400).send(`Error : ${err.message}`);
   }
 };
+
+const commentOnABlog = async (req, res) => {
+  try {
+    const { comment } = req.body;
+
+    // Getting author who commented.
+    const author = await Author.findById(req.user._id);
+
+    // Getting Blog on which author wants to comment
+    const blog = await Blog.findById({ _id: req.params.id });
+
+    // Validating user input
+    if (!blog) {
+      res.status(400).send(`Blog not found`);
+    }
+
+    //Adding a comment
+    await Blog.findByIdAndUpdate(
+      { _id: req.params.id },
+      {
+        $push: { comments: { author, comment } },
+      },
+      { new: true }
+    );
+    res.status(200).send(`Added Comment`);
+  } catch (err) {
+    res.status(400).send(`Error : ${err.message}`);
+  }
+};
 module.exports = {
   ShowAllBlogs,
   showBlogWithId,
@@ -186,4 +215,5 @@ module.exports = {
   updateBlog,
   deleteBlog,
   likeABlog,
+  commentOnABlog,
 };

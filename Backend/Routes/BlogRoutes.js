@@ -20,9 +20,9 @@ router.route('/:id').get(showBlogWithId);
 router.route('/add').post(protect, addBlog);
 
 // Edit A Blog
-router.route('/update/:id').put(protect, updateBlog);
+router.route('/edit/:id').put(protect, updateBlog);
 
 // Delete A Blog
-router.route('/delete/:id').delete(deleteBlog);
+router.route('/delete/:id').delete(protect, deleteBlog);
 
 module.exports = router;

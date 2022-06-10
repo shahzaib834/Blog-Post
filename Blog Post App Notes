@@ -20,11 +20,14 @@ Features.
 - Create Articles/Blogs //done
 - View All Blogs //done
 - Edit own profile //done
-- Edit/Delete own blog
-- Delete own Blog
+- Edit/Delete own blog // done
+- Delete own Blog // done
+
 - Add Category,tags,filter to list blog.
 - Follow other authors
 - fav/like authors
 - comment articles/blogs.
 
 Todos.
+
+- Saving images in mongo and displaying them.

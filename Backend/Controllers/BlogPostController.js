@@ -65,28 +65,12 @@ const updateBlog = async (req, res) => {
     const blog = await Blog.findById({ _id: req.params.id });
 
     // Checking if this blog belongs to the user who reqquested the update/edit.
-
-    // console.log(`blog : ${blog._id}`);
-    // console.log(`author blogs : ${author.blogs[0]}`);
-
     // Mapping through blogs of author to check if he is the owner of the blog.
+    const isSame = author.blogs.some(
+      (value) => JSON.stringify(blog._id) === JSON.stringify(value)
+    );
 
-    //  const isSame = author.blogs.map((value) => {
-    //    if (blog._id === value) {
-    //      return true;
-    //    }
-    //  });
-
-    // const isSame = author.blogs.map((value) => blog._id === value);
-
-    //  const isSame = author.blogs.forEach((value) => {
-    //    if (blog._id === value) {
-    //      return true;
-    //    }
-    //  });
-
-    console.log(`Value of IsSame : ${isSame}`);
-    if (isSame === true) {
+    if (isSame) {
       const editedBlog = await Blog.findByIdAndUpdate(
         { _id: req.params.id },
         {
@@ -110,14 +94,44 @@ const updateBlog = async (req, res) => {
 };
 
 const deleteBlog = async (req, res) => {
-  const deletedBlog = await Blog.findByIdAndRemove({ _id: req.params.id });
+  try {
+    const blogToDelete = await Blog.findById({ _id: req.params.id });
 
-  if (!deletedBlog) {
-    res.status(404).send('Blog not found');
+    if (!blogToDelete) {
+      res.status(400).status('Blog not found');
+    }
+
+    // Checking if requested person owns the blog.
+    const author = await Author.findById(req.user._id);
+
+    const isOwner = author.blogs.some(
+      (value) => JSON.stringify(blogToDelete._id) === JSON.stringify(value)
+    );
+
+    if (isOwner) {
+      // Delete Blog From Blogs Model
+      const deletedBlog = await Blog.findByIdAndRemove({
+        _id: blogToDelete._id,
+      });
+      console.log(`Blog Deleted Succesfully from Blogs Model`, deletedBlog);
+
+      // Delete Blog From Authors Model
+      const deletedBlogFromAuthorModel = await Author.findByIdAndUpdate(
+        req.user._id,
+        { $pull: { blogs: blogToDelete._id } }
+      );
+      console.log(
+        `Blog Deleted Succesfully from Author Model`,
+        deletedBlogFromAuthorModel
+      );
+
+      res.status(200).send(blogToDelete);
+    } else {
+      console.log('you cannot delete this blog');
+    }
+  } catch (err) {
+    res.status(400).send(`Error : ${err.message}`);
   }
-
-  console.log('deleted Succesfully');
-  res.status(200).send(deletedBlog);
 };
 module.exports = {
   ShowAllBlogs,

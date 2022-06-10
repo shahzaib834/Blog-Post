@@ -2,13 +2,6 @@ const mongoose = require('mongoose');
 const bcrypt = require('bcrypt');
 const { genSalt } = require('bcrypt');
 
-const followersSchema = mongoose.Schema({
-  followerName: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: 'Author',
-  },
-});
-
 const authorSchema = mongoose.Schema(
   {
     email: {
@@ -40,7 +33,7 @@ const authorSchema = mongoose.Schema(
       required: true,
       default: 0,
     },
-    followers: [followersSchema],
+    followers: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Author' }],
     following: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Author' }],
     blogs: [
       {

@@ -9,7 +9,6 @@ const {
   showAuthorWithId,
   updateAuthor,
   followAuthor,
-  addAuthor,
 } = require('../Controllers/authorController');
 const protect = require('../middleware/authMiddleware');
 
@@ -34,6 +33,6 @@ router.route('/:id').get(showAuthorWithId);
 router.route('/update').put(protect, updateAuthor);
 
 //Follow Other Authors.
-//router.route('/follow/:id').put(followAuthor);
+router.route('/follow/:id').put(protect, followAuthor);
 
 module.exports = router;

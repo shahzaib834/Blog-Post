@@ -28,23 +28,54 @@ const updateAuthor = async (req, res) => {
   res.status(200).send(updatedAuthor);
 };
 
-//const followAuthor = async (req, res) => {
-//  const currentAuthor = await Author.findById({
-//    _id: '629e4a04f709830d13b0fe2a',
-//  });
+const followAuthor = async (req, res) => {
+  // Getting Author who will follow
+  const author = await Author.findById(req.user._id);
 
-// const toFollow = await Author.findById({_id: req.params.id});
+  // Getting author who to follow.
+  const toFollow = await Author.findById({ _id: req.params.id });
 
-//  currentAuthor.following = {...currentAuthor.following, toFollow}
+  //Validating user input
+  if (!toFollow) {
+    res.status(400).send(`Please send a valid author`);
+  }
 
-//  await Author.findByIdAndUpdate({_id: currentAuthor}, {}, {new: true});
+  // Checking if he has already followed.
+  const alreadyFollowed = toFollow.followers.some(
+    (value) => JSON.stringify(author._id) === JSON.stringify(value)
+  );
 
-//  console.log(currentAuthor);
-//};
+  if (alreadyFollowed) {
+    res.status(400).send(`Already Followed`);
+  } else {
+    // Adding follower to the follower's array
+    // Incrementing followers Count
+    await Author.findByIdAndUpdate(
+      { _id: toFollow._id },
+      {
+        $push: { followers: author },
+        $inc: { followersCount: 1 },
+      },
+      { new: true }
+    );
+
+    // Increment Following Count
+    await Author.findByIdAndUpdate(
+      req.user._id,
+      {
+        $push: { following: toFollow },
+        $inc: { followingCount: 1 },
+      },
+      { new: true }
+    );
+
+    res.status(200).send(`Followed ${toFollow.name} by ${author.name}`);
+  }
+};
 
 module.exports = {
   ShowAllAuthors,
   showAuthorWithId,
   updateAuthor,
-  // followAuthor,
+  followAuthor,
 };

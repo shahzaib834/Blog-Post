@@ -41,7 +41,7 @@ const addBlog = async (req, res) => {
       );
       res
         .status(200)
-        .json(`Updated Blog : ${blog} and Updated Authir : ${updatedAuthor}`);
+        .json(`Updated Blog : ${blog} and Updated Author : ${updatedAuthor}`);
     } else {
       res.status(404).send(`User not found`);
     }
@@ -137,11 +137,10 @@ const deleteBlog = async (req, res) => {
 const likeABlog = async (req, res) => {
   try {
     // Finding blog comming with params.
-    const blogToLike = await Blog.findById({ _id: req.params.blogid });
+    const blogToLike = await Blog.findById({ _id: req.params.id });
 
     // getting author id
-    const author = await Author.findById({ _id: req.params.authorid });
-    console.log(author);
+    const author = await Author.findById({ _id: req.user._id });
 
     // Checking if user send a valid blog id
     if (!blogToLike) {
@@ -158,7 +157,7 @@ const likeABlog = async (req, res) => {
     } else {
       // Pushing author to likesByAuthors array.
       await Blog.findByIdAndUpdate(
-        { _id: req.params.blogid },
+        { _id: req.params.id },
         {
           $push: { likedByAuthors: author._id },
         },
@@ -167,7 +166,7 @@ const likeABlog = async (req, res) => {
 
       //Updating blog to increase count of likes in blog
       const updatedBlog = await Blog.findByIdAndUpdate(
-        { _id: req.params.blogid },
+        { _id: req.params.id },
         {
           $inc: { likes: 1 },
         },

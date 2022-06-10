@@ -27,6 +27,6 @@ router.route('/edit/:id').put(protect, updateBlog);
 router.route('/delete/:id').delete(protect, deleteBlog);
 
 // Like a blog
-router.route('/like/:id').post(likeABlog);
+router.route('/like/:blogid/:authorid').post(likeABlog);
 
 module.exports = router;

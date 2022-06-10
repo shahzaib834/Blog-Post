@@ -135,26 +135,50 @@ const deleteBlog = async (req, res) => {
 };
 
 const likeABlog = async (req, res) => {
-  // Finding blog comming with params.
-  const blogToLike = await Blog.findById({ _id: req.params.id });
+  try {
+    // Finding blog comming with params.
+    const blogToLike = await Blog.findById({ _id: req.params.blogid });
 
-  // Checking if user send a valid blog id
-  if (!blogToLike) {
-    res.status(400).send(`Error: No Blog found`);
+    // getting author id
+    const author = await Author.findById({ _id: req.params.authorid });
+    console.log(author);
+
+    // Checking if user send a valid blog id
+    if (!blogToLike) {
+      res.status(400).send(`Error: No Blog found`);
+    }
+
+    //Checking if the user already liked the blog
+    const alreadyLiked = blogToLike.likedByAuthors.some(
+      (value) => JSON.stringify(author._id) === JSON.stringify(value)
+    );
+
+    if (alreadyLiked) {
+      res.status(400).send(`You already liked the blog.`);
+    } else {
+      // Pushing author to likesByAuthors array.
+      await Blog.findByIdAndUpdate(
+        { _id: req.params.blogid },
+        {
+          $push: { likedByAuthors: author._id },
+        },
+        { new: true }
+      );
+
+      //Updating blog to increase count of likes in blog
+      const updatedBlog = await Blog.findByIdAndUpdate(
+        { _id: req.params.blogid },
+        {
+          $inc: { likes: 1 },
+        },
+        { new: true }
+      );
+
+      res.send(updatedBlog);
+    }
+  } catch (err) {
+    res.status(400).send(`Error : ${err.message}`);
   }
-
-  //Checking if the user already liked the blog
-
-  //Updating blog to increase count of likes in blog
-  const updatedBlog = await Blog.findByIdAndUpdate(
-    { _id: req.params.id },
-    {
-      $inc: { likes: 1 },
-    },
-    { new: true }
-  );
-
-  res.send(updatedBlog);
 };
 module.exports = {
   ShowAllBlogs,

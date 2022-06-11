@@ -1,20 +1,54 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import { Button, Row, Col } from 'react-bootstrap';
+
+import BLOG from '../Components/Blog';
 
 const HomeScreen = () => {
-  const [blogs, setBlogs] = useState([]);
+  const [blogs, setBlogs] = useState([
+    {
+      key: 1,
+      title: 'Toad',
+      image: 'default',
+      description: 'asda.adasdas/ad/as/das/dasd',
+      category: 'Education',
+    },
+    {
+      key: 2,
+      title: 'Peach',
+      image: 'default',
+      description: 'asda.adasdas/ad/as/das/dasd',
+      category: 'Education',
+    },
+    {
+      key: 3,
+      title: 'Mario',
+      image: 'default',
+      description: 'asda.adasdas/ad/as/das/dasd',
+      category: 'Education',
+    },
+  ]);
 
-  useEffect(() => {
-    fetchBlogs();
-
-    console.log(blogs);
-  });
   const fetchBlogs = async () => {
-    const data = await axios.get('/api/blogs');
+    const { data } = await axios.get('/api/blogs/');
 
     setBlogs(data);
   };
-  return <>{blogs.name}</>;
+
+  useEffect(() => {
+    // fetchBlogs();
+  }, [fetchBlogs]);
+  return (
+    <main className='m'>
+      <Row>
+        {blogs.map((blog) => (
+          <Col>
+            <BLOG key={blog.key} blog={blog} />
+          </Col>
+        ))}
+      </Row>
+    </main>
+  );
 };
 
 export default HomeScreen;

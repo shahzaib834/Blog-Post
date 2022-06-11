@@ -4,7 +4,6 @@ const Author = require('../Models/authorModel');
 
 const ShowAllBlogs = async (req, res) => {
   const data = await Blog.find();
-
   res.send(data);
 };
 

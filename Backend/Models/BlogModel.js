@@ -29,7 +29,7 @@ const blogSchema = mongoose.Schema(
       default: 0,
     },
     likedByAuthors: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Author' }],
-    Image: {
+    image: {
       type: String,
       default:
         'https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.hostinger.com%2Ftutorials%2Fwhat-is-a-blog&psig=AOvVaw2tizd6muRgKrkGilhmo01k&ust=1654509130589000&source=images&cd=vfe&ved=0CAwQjRxqFwoTCKjkoPyElvgCFQAAAAAdAAAAABAD',

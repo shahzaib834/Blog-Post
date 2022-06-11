@@ -12,22 +12,22 @@ Routes.
 - /api/aithors/:id // done
 - /api/authors/ (addBlog)(DeleteBlog)(UpdateBlog) //done
 
-- Update Author //done
-
 Features.
 
 - Login/Sign Up(Add Author) //done
 - Create Articles/Blogs //done
 - View All Blogs //done
+- Update Author //done
 - Edit own profile //done
 - Edit/Delete own blog // done
 - Delete own Blog // done
-
 - fav/like authors // done
 - Follow other authors // done
-- comment articles/blogs.
-- Add Category,tags,filter to list blog.
+- comment articles/blogs. // done
+
+- Add Category,tags,filter to list blog. // Will do with frontend
 
 Todos.
 
 - Saving images in mongo and displaying them.
+- MERN FlexBox.

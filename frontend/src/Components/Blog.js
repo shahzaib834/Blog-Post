@@ -1,23 +1,26 @@
 import React from 'react';
-
-import { Card } from 'react-bootstrap';
-
 import img from '../blogDefaultImage.jpg';
+import { Card, Image, Text } from '@mantine/core';
+import { Link } from 'react-router-dom';
 
-function Blog({ blog }) {
+const Blog = ({ blog }) => {
   return (
-    <Card className='p-3 rounded my-3'>
-      <Card.Img src={img} />
-      <Card.Body>
-        <Card.Title>
-          <strong>{blog.title}</strong>
-        </Card.Title>
-        <Card.Text>{blog.description}</Card.Text>
-        <Card.Subtitle>Likes</Card.Subtitle>
-        <Card.Subtitle>Comments</Card.Subtitle>
-      </Card.Body>
-    </Card>
+    <div style={{ marginTop: '15%' }}>
+      <Card shadow='sm' p='lg'>
+        <Card.Section>
+          <Image src={img} height={160} width={350} />
+        </Card.Section>
+
+        <Link to='/blogs'>
+          <Text weight={500}>Norway Fjord Adventures</Text>
+        </Link>
+
+        <Text size='sm' style={{ lineHeight: 1.5 }}>
+          With Fjord Tours
+        </Text>
+      </Card>
+    </div>
   );
-}
+};
 
 export default Blog;

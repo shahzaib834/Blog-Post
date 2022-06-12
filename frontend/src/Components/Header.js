@@ -1,27 +1,34 @@
-import { Row, Col, Navbar, Container, Nav, Image } from 'react-bootstrap';
 import img from '../logo.png';
+import { Image, Text } from '@mantine/core';
 
 import React from 'react';
 
 function Header() {
   return (
-    <Navbar bg='light' expand='lg'>
-      <Container className='nav-container'>
-        <Navbar.Brand href='/'>
-          <Image src={img} className='logoImage' />
-        </Navbar.Brand>
+    <div className='navbar'>
+      <div style={{ width: 240 }}>
+        <Image src={img} />
+      </div>
 
-        <Nav>
-          <div className='nav-sub-container'>
-            <Nav.Link href='/'>Home</Nav.Link>
-            <Nav.Link href=''>Authors</Nav.Link>
+      <div
+        style={{
+          display: 'flex',
+          padding: '5px',
+          width: '80%',
+          justifyContent: 'space-between',
+        }}
+      >
+        <div style={{ display: 'flex' }}>
+          <Text>Blogs</Text>
+          <Text style={{ marginLeft: '30%' }}>Authors</Text>
+        </div>
 
-            <Nav.Link href=''>Login</Nav.Link>
-            <Nav.Link href=''>Sign Up</Nav.Link>
-          </div>
-        </Nav>
-      </Container>
-    </Navbar>
+        <div style={{ display: 'flex' }}>
+          <Text style={{ marginRight: '30%' }}>Login</Text>
+          <Text>Signup</Text>
+        </div>
+      </div>
+    </div>
   );
 }
 

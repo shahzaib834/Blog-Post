@@ -1,18 +1,7 @@
-.main {
-  height: 100vh;
-}
-
-.nav-container {
+.navbar {
   display: flex;
+  justify-content: center;
+  align-items: center;
   flex-direction: column;
-}
-
-.nav-sub-container {
-  display: flex;
-  width: 144vh;
-  justify-content: space-evenly;
-}
-
-.logoImage {
   height: 20vh;
 }

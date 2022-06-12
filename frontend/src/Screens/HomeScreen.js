@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import { Button, Row, Col } from 'react-bootstrap';
+
+import { Grid } from '@mantine/core';
 
 import BLOG from '../Components/Blog';
 
@@ -39,15 +40,13 @@ const HomeScreen = () => {
     // fetchBlogs();
   }, [fetchBlogs]);
   return (
-    <main className='m'>
-      <Row>
-        {blogs.map((blog) => (
-          <Col>
-            <BLOG key={blog.key} blog={blog} />
-          </Col>
-        ))}
-      </Row>
-    </main>
+    <Grid>
+      {blogs.map((blog) => (
+        <Grid.Col span={4}>
+          <BLOG key={blog.key} blog={blog} />
+        </Grid.Col>
+      ))}
+    </Grid>
   );
 };
 

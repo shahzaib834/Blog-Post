@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 
-import { Grid } from '@mantine/core';
+import { Grid, GridItem } from '@chakra-ui/react';
 
 import BLOG from '../Components/Blog';
 
@@ -13,6 +13,7 @@ const HomeScreen = () => {
       image: 'default',
       description: 'asda.adasdas/ad/as/das/dasd',
       category: 'Education',
+      commentsCount: '5',
     },
     {
       key: 2,
@@ -20,6 +21,7 @@ const HomeScreen = () => {
       image: 'default',
       description: 'asda.adasdas/ad/as/das/dasd',
       category: 'Education',
+      commentsCount: '50',
     },
     {
       key: 3,
@@ -27,6 +29,15 @@ const HomeScreen = () => {
       image: 'default',
       description: 'asda.adasdas/ad/as/das/dasd',
       category: 'Education',
+      commentsCount: '15665456',
+    },
+    {
+      key: 4,
+      title: 'Luigi',
+      image: 'default',
+      description: 'asda.adasdas/ad/as/das/dasd',
+      category: 'Haunted',
+      commentsCount: '456',
     },
   ]);
 
@@ -40,11 +51,11 @@ const HomeScreen = () => {
     // fetchBlogs();
   }, [fetchBlogs]);
   return (
-    <Grid>
+    <Grid templateColumns='repeat(6, 1fr)' gap={25}>
       {blogs.map((blog) => (
-        <Grid.Col xl={4} lg={4} md={6} sm={12}>
+        <GridItem colSpan={3}>
           <BLOG key={blog.key} blog={blog} />
-        </Grid.Col>
+        </GridItem>
       ))}
     </Grid>
   );

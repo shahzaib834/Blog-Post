@@ -1,40 +1,54 @@
 import React from 'react';
 import img from '../blogDefaultImage.jpg';
-import { Card, Image, Text } from '@mantine/core';
+import { Image, Box } from '@chakra-ui/react';
 import { Link } from 'react-router-dom';
+import { ChatIcon, StarIcon } from '@chakra-ui/icons';
 
 const Blog = ({ blog }) => {
   return (
-    <div style={{ marginTop: '15%' }}>
-      <Card shadow='sm' p='lg'>
-        <Card.Section>
-          <Link to={`/api/blogs/${blog.key}`}>
-            <Image src={img} height={160} width={350} />
-          </Link>
-        </Card.Section>
+    <Box maxW='sm' borderWidth='1px' borderRadius='lg' overflow='hidden'>
+      <Link to={`/api/blogs/${blog.key}`}>
+        <Image src={img} htmlHeight={225} htmlWidth={500} objectFit='cover' />
+      </Link>
 
-        <Text weight={600}>{blog.title}</Text>
-
-        <Text size='sm' style={{ lineHeight: 1.5 }}>
-          {blog.description}
-        </Text>
-
-        <Text size='md' style={{ marginTop: '5%' }}>
-          Category: {blog.category}
-        </Text>
-
-        <div
-          style={{
-            display: 'flex',
-            justifyContent: 'space-between',
-            marginTop: '4%',
-          }}
+      <Box p='6'>
+        <Box
+          mt='1'
+          fontWeight='bold'
+          as='h3'
+          lineHeight='tight'
+          noOfLines={1}
+          textTransform='uppercase'
         >
-          <Text>Likes</Text>
-          <Text>Comments</Text>
-        </div>
-      </Card>
-    </div>
+          {blog.title}
+        </Box>
+
+        <Box mt='1' as='p' lineHeight='tight'>
+          {blog.description}
+        </Box>
+      </Box>
+
+      <Box display='flex'>
+        <Box mt='1' as='h4' lineHeight='tight' noOfLines={1}>
+          Category:{' '}
+        </Box>
+        <Box as='p' mt='1' ml='10' fontSize='sm'>
+          {blog.category}
+        </Box>
+      </Box>
+
+      <Box display='flex' justifyContent='space-between'>
+        <Box display='flex' alignItems='center'>
+          <StarIcon mr='5' />
+          {455}
+        </Box>
+
+        <Box display='flex' alignItems='center'>
+          <ChatIcon mr='5' />
+          {blog.commentsCount}
+        </Box>
+      </Box>
+    </Box>
   );
 };
 

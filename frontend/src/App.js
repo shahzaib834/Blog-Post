@@ -5,6 +5,7 @@ import Header from './Components/Header';
 
 import BlogScreen from './Screens/BlogScreen';
 import HomeScreen from './Screens/HomeScreen';
+import AuthorsScreen from './Screens/AuthorsScreen';
 
 const App = () => {
   return (
@@ -13,7 +14,8 @@ const App = () => {
         <Header />
         <Routes>
           <Route index element={<HomeScreen />} />
-          <Route path='/blog' element={<BlogScreen />} />
+          <Route path='/blogs' element={<BlogScreen />} />
+          <Route path='/authors' element={<AuthorsScreen />} />
         </Routes>
       </Container>
     </BrowserRouter>

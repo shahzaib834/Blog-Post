@@ -14,7 +14,7 @@ function Header() {
   return (
     <>
       <div className='header'>
-        <Image src={img} boxSize='200px' />
+        <Image src={img} boxSize='210px' />
       </div>
       <Breadcrumb
         spacing='8px'

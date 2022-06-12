@@ -1,34 +1,44 @@
 import img from '../logo.png';
-import { Image, Text } from '@mantine/core';
+import {
+  Breadcrumb,
+  BreadcrumbItem,
+  BreadcrumbLink,
+  Image,
+} from '@chakra-ui/react';
+
+import { ChevronRightIcon } from '@chakra-ui/icons';
 
 import React from 'react';
 
 function Header() {
   return (
-    <div className='navbar'>
-      <div style={{ width: 240 }}>
-        <Image src={img} />
+    <>
+      <div className='header'>
+        <Image src={img} boxSize='200px' />
       </div>
-
-      <div
-        style={{
-          display: 'flex',
-          padding: '5px',
-          width: '80%',
-          justifyContent: 'space-between',
-        }}
+      <Breadcrumb
+        spacing='8px'
+        separator={<ChevronRightIcon color='gray.500' />}
       >
-        <div style={{ display: 'flex' }}>
-          <Text>Blogs</Text>
-          <Text style={{ marginLeft: '30%' }}>Authors</Text>
-        </div>
+        <BreadcrumbItem>
+          <BreadcrumbLink href='/' isCurrentPage>
+            Home
+          </BreadcrumbLink>
+        </BreadcrumbItem>
 
-        <div style={{ display: 'flex' }}>
-          <Text style={{ marginRight: '30%' }}>Login</Text>
-          <Text>Signup</Text>
-        </div>
-      </div>
-    </div>
+        <BreadcrumbItem>
+          <BreadcrumbLink href='/authors'>Authors</BreadcrumbLink>
+        </BreadcrumbItem>
+
+        <BreadcrumbItem>
+          <BreadcrumbLink href='/login'>Login</BreadcrumbLink>
+        </BreadcrumbItem>
+
+        <BreadcrumbItem>
+          <BreadcrumbLink href='/signup'>Sign Up</BreadcrumbLink>
+        </BreadcrumbItem>
+      </Breadcrumb>
+    </>
   );
 }
 

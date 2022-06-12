@@ -8,16 +8,31 @@ const Blog = ({ blog }) => {
     <div style={{ marginTop: '15%' }}>
       <Card shadow='sm' p='lg'>
         <Card.Section>
-          <Image src={img} height={160} width={350} />
+          <Link to={`/api/blogs/${blog.key}`}>
+            <Image src={img} height={160} width={350} />
+          </Link>
         </Card.Section>
 
-        <Link to='/blogs'>
-          <Text weight={500}>Norway Fjord Adventures</Text>
-        </Link>
+        <Text weight={600}>{blog.title}</Text>
 
         <Text size='sm' style={{ lineHeight: 1.5 }}>
-          With Fjord Tours
+          {blog.description}
         </Text>
+
+        <Text size='md' style={{ marginTop: '5%' }}>
+          Category: {blog.category}
+        </Text>
+
+        <div
+          style={{
+            display: 'flex',
+            justifyContent: 'space-between',
+            marginTop: '4%',
+          }}
+        >
+          <Text>Likes</Text>
+          <Text>Comments</Text>
+        </div>
       </Card>
     </div>
   );

@@ -42,7 +42,7 @@ const HomeScreen = () => {
   return (
     <Grid>
       {blogs.map((blog) => (
-        <Grid.Col span={4}>
+        <Grid.Col xl={4} lg={4} md={6} sm={12}>
           <BLOG key={blog.key} blog={blog} />
         </Grid.Col>
       ))}
